@@ -138,6 +138,47 @@
     .step-active .step-line {
       background: var(--primary);
     }
+    .service-card-back {
+  color: black;
+}
+.package-card-button {
+  opacity: 1 !important; /* Assure que le bouton est visible par défaut */
+  background-color: var(--secondary); /* Fond jaune */
+  color: white; /* Texte blanc */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Transition fluide pour le survol */
+}
+
+.package-card-button:hover {
+  background-color: #B38F00; /* Teinte jaune plus foncée pour le survol */
+  transform: scale(1.05); /* Légère mise à l'échelle pour l'interaction */
+}
+.submit-btn {
+  position: relative;
+  overflow: hidden;
+  z-index: 1; /* Assure que le bouton est visible */
+  color: white !important; /* Force la couleur du texte en blanc */
+  background-color: var(--primary) !important; /* Force la couleur de fond */
+  opacity: 1 !important; /* Assure que le bouton est toujours visible */
+}
+
+.submit-btn::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.4s, height 0.4s;
+  z-index: -1; /* Place l'effet d'onde derrière le texte du bouton */
+}
+
+.submit-btn:hover::after {
+  width: 200px;
+  height: 200px;
+}
   </style>
 </head>
 <body>
@@ -329,21 +370,20 @@
 
     // Render Services
     const servicesGrid = document.getElementById('servicesGrid');
-    services.forEach((service, index) => {
-      const serviceCard = document.createElement('div');
-      serviceCard.className = 'relative w-full h-64 perspective-1000 cursor-pointer group animate-fade-in-up';
-      serviceCard.style.animationDelay = `${index * 0.2}s`;
-      serviceCard.innerHTML = `
-        <div class="absolute w-full h-full transition-transform duration-700 preserve-3d">
-          <div class="absolute w-full h-full backface-hidden bg-white rounded-lg shadow-lg p-6 flex flex-col items-center justify-center">
-            <div class="text-var(--primary) mb-4">${service.icon}</div>
-            <h3 class="text-xl font-bold text-var(--text) mb-2">${service.title}</h3>
-          </div>
-          <div class="absolute w-full h-full backface-hidden rotate-y-180 bg-var(--primary) rounded-lg shadow-lg p-6 flex flex-col items-center justify-center text-white">
-            <p class="text-center">${service.description}</p>
-          </div>
-        </div>
-      `;
+    services.forEach(service => {
+  const serviceCard = document.createElement('div');
+  serviceCard.className = 'relative w-full h-64 perspective-1000 cursor-pointer group';
+  serviceCard.innerHTML = `
+    <div class="absolute w-full h-full transition-transform duration-700 preserve-3d">
+      <div class="absolute w-full h-full backface-hidden bg-white rounded-lg shadow-lg p-6 flex flex-col items-center justify-center">
+        <div class="text-emerald-600 mb-4">${service.icon}</div>
+        <h3 class="text-xl font-bold text-gray-800 mb-2">${service.title}</h3>
+      </div>
+      <div class="absolute w-full h-full backface-hidden rotate-y-180 bg-emerald-600 rounded-lg shadow-lg p-6 flex flex-col items-center justify-center service-card-back">
+        <p class="text-center">${service.description}</p>
+      </div>
+    </div>
+  `;
       
       serviceCard.addEventListener('mouseenter', () => {
         serviceCard.querySelector('.preserve-3d').classList.add('rotate-y-180');
@@ -502,42 +542,42 @@
 
     // Render Packages
     function renderPackages() {
-      const packagesGrid = document.getElementById('packagesGrid');
-      packagesGrid.innerHTML = '';
-      
-      const filteredPackages = packages.filter(pkg => pkg.type === activeTab);
-      
-      filteredPackages.forEach((pkg, index) => {
-        const packageCard = document.createElement('div');
-        packageCard.className = 'relative w-full h-96 perspective-1000 cursor-pointer group animate-fade-in-up';
-        packageCard.style.animationDelay = `${index * 0.2}s`;
-        packageCard.innerHTML = `
-          <div class="absolute w-full h-full transition-transform duration-700 preserve-3d">
-            <div class="absolute w-full h-full backface-hidden bg-white rounded-lg shadow-lg p-6 flex flex-col items-center justify-center">
-              <img src="${pkg.image}" alt="${pkg.title}" class="w-full h-40 object-cover rounded-t-lg mb-4">
-              <h3 class="text-2xl font-bold text-var(--text) mb-2">${pkg.title}</h3>
-              <p class="text-3xl font-bold text-var(--primary)">€${pkg.price} <span class="text-sm font-normal text-gray-600">${pkg.type === 'horaire' ? 'par heure' : pkg.type === 'annuel' ? 'par an' : pkg.type === 'mensuel' ? 'par mois' : 'par semaine'}</span></p>
-            </div>
-            <div class="absolute w-full h-full backface-hidden rotate-y-180 bg-var(--primary) rounded-lg shadow-lg p-6 flex flex-col items-center justify-center text-white">
-              <ul class="space-y-2 text-center">
-                ${pkg.features.map(feature => `<li>${feature}</li>`).join('')}
-              </ul>
-              <a href="#book-now" class="mt-4 inline-block bg-var(--secondary) hover:bg-yellow-600 text-white font-medium py-2 px-4 rounded">S'inscrire</a>
-            </div>
-          </div>
-        `;
-        
-        packageCard.addEventListener('mouseenter', () => {
-          packageCard.querySelector('.preserve-3d').classList.add('rotate-y-180');
-        });
-        
-        packageCard.addEventListener('mouseleave', () => {
-          packageCard.querySelector('.preserve-3d').classList.remove('rotate-y-180');
-        });
-        
-        packagesGrid.appendChild(packageCard);
-      });
-    }
+  const packagesGrid = document.getElementById('packagesGrid');
+  packagesGrid.innerHTML = '';
+  
+  const filteredPackages = packages.filter(pkg => pkg.type === activeTab);
+  
+  filteredPackages.forEach((pkg, index) => {
+    const packageCard = document.createElement('div');
+    packageCard.className = 'relative w-full h-96 perspective-1000 cursor-pointer group animate-fade-in-up';
+    packageCard.style.animationDelay = `${index * 0.2}s`;
+    packageCard.innerHTML = `
+      <div class="absolute w-full h-full transition-transform duration-700 preserve-3d">
+        <div class="absolute w-full h-full backface-hidden bg-white rounded-lg shadow-lg p-6 flex flex-col items-center justify-center">
+          <img src="${pkg.image}" alt="${pkg.title}" class="w-full h-40 object-cover rounded-t-lg mb-4">
+          <h3 class="text-2xl font-bold text-var(--text) mb-2">${pkg.title}</h3>
+          <p class="text-3xl font-bold text-var(--primary)">€${pkg.price} <span class="text-sm font-normal text-gray-600">${pkg.type === 'horaire' ? 'par heure' : pkg.type === 'annuel' ? 'par an' : pkg.type === 'mensuel' ? 'par mois' : 'par semaine'}</span></p>
+        </div>
+        <div class="absolute w-full h-full backface-hidden rotate-y-180 bg-var(--primary) rounded-lg shadow-lg p-6 flex flex-col items-center justify-center package-card-back">
+          <ul class="space-y-2 text-center">
+            ${pkg.features.map(feature => `<li>${feature}</li>`).join('')}
+          </ul>
+          <a href="#book-now" class="mt-4 inline-block package-card-button font-medium py-2 px-4 rounded">S'inscrire</a>
+        </div>
+      </div>
+    `;
+    
+    packageCard.addEventListener('mouseenter', () => {
+      packageCard.querySelector('.preserve-3d').classList.add('rotate-y-180');
+    });
+    
+    packageCard.addEventListener('mouseleave', () => {
+      packageCard.querySelector('.preserve-3d').classList.remove('rotate-y-180');
+    });
+    
+    packagesGrid.appendChild(packageCard);
+  });
+}
 
     // Initial render of packages
     renderPackages();
