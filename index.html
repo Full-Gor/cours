@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Cours de langue arabe basés sur les livres de Médine (Tomes 1 à 4). Forfaits mensuels, hebdomadaires, annuels ou à l'heure pour duo ou groupe.">
+  <meta name="keywords" content="cours arabe, livres Médine, apprentissage arabe, forfaits arabe">
+  <meta name="author" content="Arabe Cours">
+  <title>Arabe Cours - Apprenez l'Arabe avec les Livres de Médine</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Amiri:wght@400;700&display=swap">
+  <style>
+    :root {
+      --primary: #4A7043;
+      --secondary: #D4A017;
+      --background: #F8F1E9;
+      --text: #2D2D2D;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      background: var(--background);
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Amiri', serif;
+    }
+
+    /* Animations */
+    @keyframes slideInLeft {
+      from { opacity: 0; transform: translateX(-50px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(50px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-slide-in-left {
+      opacity: 0;
+      animation: slideInLeft 0.8s ease-out forwards;
+    }
+
+    .animate-slide-in-right {
+      opacity: 0;
+      animation: slideInRight 0.8s ease-out forwards;
+    }
+
+    .animate-fade-in-up {
+      opacity: 0;
+      animation: fadeInUp 0.8s ease-out forwards;
+    }
+
+    /* 3D Card Flip */
+    .perspective-1000 {
+      perspective: 1000px;
+    }
+
+    .preserve-3d {
+      transform-style: preserve-3d;
+    }
+
+    .backface-hidden {
+      backface-visibility: hidden;
+    }
+
+    .rotate-y-180 {
+      transform: rotateY(180deg);
+    }
+
+    /* Navbar */
+    .nav-link::after {
+      content: '';
+      display: block;
+      width: 0;
+      height: 2px;
+      background: var(--secondary);
+      transition: width 0.3s;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    /* Form */
+    .form-input {
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .form-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(74, 112, 67, 0.1);
+    }
+
+    .submit-btn {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .submit-btn::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.4s, height 0.4s;
+    }
+
+    .submit-btn:hover::after {
+      width: 200px;
+      height: 200px;
+    }
+
+    /* Progress Steps */
+    .step-circle {
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .step-line {
+      height: 2px;
+      background: #E5E7EB;
+      flex: 1;
+      transition: background-color 0.3s ease;
+    }
+
+    .step-active .step-line {
+      background: var(--primary);
+    }
+  </style>
+</head>
+<body>
+  <div id="root">
+    <!-- Navbar -->
+    <header class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-white bg-opacity-90 backdrop-blur-sm shadow-sm" id="header">
+      <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+        <a href="#home" class="flex items-center space-x-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2">
+            <path d="M4 4h16v16H4z" fill="var(--secondary)" />
+            <path d="M12 8v8M8 12h8" stroke="var(--primary)" />
+          </svg>
+          <span class="text-2xl font-bold text-var(--primary)" style="font-family: 'Amiri', serif;">Arabe Cours</span>
+        </a>
+        
+        <nav class="hidden md:flex space-x-8">
+          <a href="#home" class="nav-link text-var(--text) font-medium hover:text-var(--primary) transition-colors">Accueil</a>
+          <a href="#services" class="nav-link text-var(--text) font-medium hover:text-var(--primary) transition-colors">Services</a>
+          <a href="#packages" class="nav-link text-var(--text) font-medium hover:text-var(--primary) transition-colors">Forfaits</a>
+          <a href="#book-now" class="nav-link text-var(--text) font-medium hover:text-var(--primary) transition-colors">Inscription</a>
+        </nav>
+
+        <button class="md:hidden text-var(--text)" id="menuButton">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div class="md:hidden hidden bg-white shadow-lg" id="mobileMenu">
+        <div class="container mx-auto px-4 py-4">
+          <nav class="flex flex-col space-y-4">
+            <a href="#home" class="text-var(--text) font-medium py-2 hover:text-var(--primary)">Accueil</a>
+            <a href="#services" class="text-var(--text) font-medium py-2 hover:text-var(--primary)">Services</a>
+            <a href="#packages" class="text-var(--text) font-medium py-2 hover:text-var(--primary)">Forfaits</a>
+            <a href="#book-now" class="text-var(--text) font-medium py-2 hover:text-var(--primary)">Inscription</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden bg-gray-900">
+      <div class="absolute inset-0" style="background-image: url('https://images.pexels.com/photos/167533/pexels-photo-167533.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750'); background-size: cover; background-position: center;"></div>
+      <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+      
+      <div class="relative z-10 text-center px-4 max-w-4xl">
+        <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 animate-slide-in-left">Apprenez l'Arabe avec les Livres de Médine</h1>
+        <p class="text-xl md:text-2xl text-gray-200 mb-8 animate-slide-in-right" style="animation-delay: 0.2s;">Cours personnalisés pour tous les niveaux, basés sur les Tomes 1 à 4</p>
+        <a href="#book-now" class="inline-block bg-var(--primary) hover:bg-green-600 text-white font-medium py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 animate-slide-in-left" style="animation-delay: 0.4s;">
+          S'inscrire Maintenant
+        </a>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-gray-100">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-16 animate-fade-in-up">
+          <h2 class="text-3xl md:text-4xl font-bold text-var(--text) mb-4">Pourquoi Choisir Nos Cours ?</h2>
+          <p class="text-lg text-gray-600 max-w-2xl mx-auto">Une méthodologie éprouvée pour maîtriser l'arabe facilement</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8" id="servicesGrid"></div>
+      </div>
+    </section>
+
+    <!-- Packages Section -->
+    <section id="packages" class="py-20 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-16 animate-fade-in-up">
+          <h2 class="text-3xl md:text-4xl font-bold text-var(--text) mb-4">Nos Forfaits de Cours</h2>
+          <p class="text-lg text-gray-600 max-w-2xl mx-auto">Choisissez le forfait adapté à votre rythme et vos objectifs</p>
+        </div>
+        
+        <div class="flex flex-wrap justify-center mb-12" id="packageTabs"></div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="packagesGrid"></div>
+      </div>
+    </section>
+
+    <!-- Booking Section -->
+    <section id="book-now" class="py-20 bg-gray-100">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-16 animate-fade-in-up">
+          <h2 class="text-3xl md:text-4xl font-bold text-var(--text) mb-4">Inscrivez-vous Aujourd'hui</h2>
+          <p class="text-lg text-gray-600 max-w-2xl mx-auto">Remplissez le formulaire pour commencer votre apprentissage</p>
+        </div>
+
+        <div class="max-w-4xl mx-auto">
+          <!-- Progress Steps -->
+          <div class="flex items-center justify-between mb-12 max-w-3xl mx-auto" id="bookingSteps"></div>
+          
+          <div class="bg-white rounded-lg shadow-lg p-8 animate-fade-in-up">
+            <form id="bookingForm" class="space-y-6"></form>
+            <div class="order-success hidden bg-green-100 text-green-800 p-4 rounded-lg mt-4 text-center animate-fade-in-up" id="order-success">
+              <svg class="w-6 h-6 inline-block mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              Votre inscription a été envoyée avec succès !
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-200 py-12">
+      <div class="container mx-auto px-4 text-center">
+        <div class="flex items-center justify-center space-x-2 mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2">
+            <path d="M4 4h16v16H4z" fill="var(--secondary)" />
+            <path d="M12 8v8M8 12h8" stroke="var(--primary)" />
+          </svg>
+          <span class="text-2xl font-bold" style="font-family: 'Amiri', serif;">Arabe Cours</span>
+        </div>
+        <p class="text-gray-400 mb-6">Votre partenaire pour apprendre l'arabe avec les livres de Médine.</p>
+        <div class="flex justify-center space-x-6 mb-6">
+          <a href="#home" class="hover:text-var(--secondary)">Accueil</a>
+          <a href="#services" class="hover:text-var(--secondary)">Services</a>
+          <a href="#packages" class="hover:text-var(--secondary)">Forfaits</a>
+          <a href="#book-now" class="hover:text-var(--secondary)">Inscription</a>
+        </div>
+        <p class="text-gray-500 text-sm">© 2025 Arabe Cours. Tous droits réservés.</p>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Scroll Animations
+    function revealOnScroll() {
+      const elements = document.querySelectorAll('.animate-fade-in-up, .animate-slide-in-left, .animate-slide-in-right');
+      elements.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom >= 0) {
+          el.style.opacity = '1';
+        }
+      });
+    }
+
+    window.addEventListener('scroll', revealOnScroll);
+    window.addEventListener('load', revealOnScroll);
+
+    // Navbar Scroll Effect
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('bg-opacity-100', 'shadow-md');
+        header.classList.remove('bg-opacity-90');
+      } else {
+        header.classList.add('bg-opacity-90');
+        header.classList.remove('bg-opacity-100', 'shadow-md');
+      }
+    });
+
+    // Mobile Menu Toggle
+    const menuButton = document.getElementById('menuButton');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Services Data
+    const services = [
+      {
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"></path><path d="M12 8v8M8 12h8"></path></svg>',
+        title: "Méthodologie Médine",
+        description: "Cours basés sur les livres de Médine, reconnus pour leur approche structurée et progressive."
+      },
+      {
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>',
+        title: "Professeurs Qualifiés",
+        description: "Enseignants natifs et expérimentés, spécialisés dans l'enseignement de l'arabe."
+      },
+      {
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>',
+        title: "Cours Flexibles",
+        description: "Forfaits adaptés à votre emploi du temps : mensuel, hebdomadaire, annuel ou à l'heure."
+      },
+      {
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>',
+        title: "Petits Groupes",
+        description: "Cours en duo ou en petits groupes pour une attention personnalisée."
+      }
+    ];
+
+    // Render Services
+    const servicesGrid = document.getElementById('servicesGrid');
+    services.forEach((service, index) => {
+      const serviceCard = document.createElement('div');
+      serviceCard.className = 'relative w-full h-64 perspective-1000 cursor-pointer group animate-fade-in-up';
+      serviceCard.style.animationDelay = `${index * 0.2}s`;
+      serviceCard.innerHTML = `
+        <div class="absolute w-full h-full transition-transform duration-700 preserve-3d">
+          <div class="absolute w-full h-full backface-hidden bg-white rounded-lg shadow-lg p-6 flex flex-col items-center justify-center">
+            <div class="text-var(--primary) mb-4">${service.icon}</div>
+            <h3 class="text-xl font-bold text-var(--text) mb-2">${service.title}</h3>
+          </div>
+          <div class="absolute w-full h-full backface-hidden rotate-y-180 bg-var(--primary) rounded-lg shadow-lg p-6 flex flex-col items-center justify-center text-white">
+            <p class="text-center">${service.description}</p>
+          </div>
+        </div>
+      `;
+      
+      serviceCard.addEventListener('mouseenter', () => {
+        serviceCard.querySelector('.preserve-3d').classList.add('rotate-y-180');
+      });
+      
+      serviceCard.addEventListener('mouseleave', () => {
+        serviceCard.querySelector('.preserve-3d').classList.remove('rotate-y-180');
+      });
+      
+      servicesGrid.appendChild(serviceCard);
+    });
+
+    // Packages Data
+    const packages = [
+      {
+        id: 'monthly-duo',
+        title: 'Mensuel Duo',
+        type: 'mensuel',
+        price: 200,
+        features: [
+          '8 heures de cours par mois',
+          'Tomes 1-4 selon niveau',
+          'Cours pour 2 personnes',
+          'Support par email',
+          'Accès à des ressources en ligne'
+        ],
+        image: 'https://images.pexels.com/photos/2422293/pexels-photo-2422293.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750',
+        format: 'duo'
+      },
+      {
+        id: 'monthly-group',
+        title: 'Mensuel Groupe',
+        type: 'mensuel',
+        price: 150,
+        features: [
+          '8 heures de cours par mois',
+          'Tomes 1-4 selon niveau',
+          'Cours pour 4+ personnes',
+          'Support par email',
+          'Accès à des ressources en ligne'
+        ],
+        image: 'https://images.pexels.com/photos/3183183/pexels-photo-3183183.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750',
+        format: 'groupe'
+      },
+      {
+        id: 'weekly-duo',
+        title: 'Hebdomadaire Duo',
+        type: 'hebdomadaire',
+        price: 60,
+        features: [
+          '2 heures de cours par semaine',
+          'Tomes 1-4 selon niveau',
+          'Cours pour 2 personnes',
+          'Support par email'
+        ],
+        image: 'https://images.pexels.com/photos/2422290/pexels-photo-2422290.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750',
+        format: 'duo'
+      },
+      {
+        id: 'weekly-group',
+        title: 'Hebdomadaire Groupe',
+        type: 'hebdomadaire',
+        price: 45,
+        features: [
+          '2 heures de cours par semaine',
+          'Tomes 1-4 selon niveau',
+          'Cours pour 4+ personnes',
+          'Support par email'
+        ],
+        image: 'https://images.pexels.com/photos/3184297/pexels-photo-3184297.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750',
+        format: 'groupe'
+      },
+      {
+        id: 'yearly-duo',
+        title: 'Annuel Duo',
+        type: 'annuel',
+        price: 2000,
+        features: [
+          '96 heures de cours par an',
+          'Tomes 1-4 selon niveau',
+          'Cours pour 2 personnes',
+          'Support prioritaire',
+          'Accès à des ressources premium'
+        ],
+        image: 'https://images.pexels.com/photos/2422294/pexels-photo-2422294.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750',
+        format: 'duo'
+      },
+      {
+        id: 'yearly-group',
+        title: 'Annuel Groupe',
+        type: 'annuel',
+        price: 1500,
+        features: [
+          '96 heures de cours par an',
+          'Tomes 1-4 selon niveau',
+          'Cours pour 4+ personnes',
+          'Support prioritaire',
+          'Accès à des ressources premium'
+        ],
+        image: 'https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750',
+        format: 'groupe'
+      },
+      {
+        id: 'hourly-duo',
+        title: 'À l\'Heure Duo',
+        type: 'horaire',
+        price: 30,
+        features: [
+          'Cours à l\'heure',
+          'Tomes 1-4 selon niveau',
+          'Cours pour 2 personnes',
+          'Flexibilité maximale'
+        ],
+        image: 'https://images.pexels.com/photos/2422293/pexels-photo-2422293.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750',
+        format: 'duo'
+      },
+      {
+        id: 'hourly-group',
+        title: 'À l\'Heure Groupe',
+        type: 'horaire',
+        price: 20,
+        features: [
+          'Cours à l\'heure',
+          'Tomes 1-4 selon niveau',
+          'Cours pour 4+ personnes',
+          'Flexibilité maximale'
+        ],
+        image: 'https://images.pexels.com/photos/3183183/pexels-photo-3183183.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750',
+        format: 'groupe'
+      }
+    ];
+
+    // Render Package Tabs
+    const packageTypes = ['mensuel', 'hebdomadaire', 'annuel', 'horaire'];
+    const packageTabs = document.getElementById('packageTabs');
+    let activeTab = 'mensuel';
+
+    packageTypes.forEach((type, index) => {
+      const tab = document.createElement('button');
+      tab.className = `px-6 py-3 m-2 rounded-full font-medium transition-all duration-300 animate-fade-in-up ${
+        type === activeTab ? 'bg-var(--primary) text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+      }`;
+      tab.style.animationDelay = `${index * 0.1}s`;
+      tab.textContent = type.charAt(0).toUpperCase() + type.slice(1);
+      tab.addEventListener('click', () => {
+        activeTab = type;
+        renderPackages();
+        packageTabs.querySelectorAll('button').forEach(btn => {
+          btn.className = `px-6 py-3 m-2 rounded-full font-medium transition-all duration-300 ${
+            btn.textContent.toLowerCase() === activeTab ? 'bg-var(--primary) text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+          }`;
+        });
+      });
+      packageTabs.appendChild(tab);
+    });
+
+    // Render Packages
+    function renderPackages() {
+      const packagesGrid = document.getElementById('packagesGrid');
+      packagesGrid.innerHTML = '';
+      
+      const filteredPackages = packages.filter(pkg => pkg.type === activeTab);
+      
+      filteredPackages.forEach((pkg, index) => {
+        const packageCard = document.createElement('div');
+        packageCard.className = 'relative w-full h-96 perspective-1000 cursor-pointer group animate-fade-in-up';
+        packageCard.style.animationDelay = `${index * 0.2}s`;
+        packageCard.innerHTML = `
+          <div class="absolute w-full h-full transition-transform duration-700 preserve-3d">
+            <div class="absolute w-full h-full backface-hidden bg-white rounded-lg shadow-lg p-6 flex flex-col items-center justify-center">
+              <img src="${pkg.image}" alt="${pkg.title}" class="w-full h-40 object-cover rounded-t-lg mb-4">
+              <h3 class="text-2xl font-bold text-var(--text) mb-2">${pkg.title}</h3>
+              <p class="text-3xl font-bold text-var(--primary)">€${pkg.price} <span class="text-sm font-normal text-gray-600">${pkg.type === 'horaire' ? 'par heure' : pkg.type === 'annuel' ? 'par an' : pkg.type === 'mensuel' ? 'par mois' : 'par semaine'}</span></p>
+            </div>
+            <div class="absolute w-full h-full backface-hidden rotate-y-180 bg-var(--primary) rounded-lg shadow-lg p-6 flex flex-col items-center justify-center text-white">
+              <ul class="space-y-2 text-center">
+                ${pkg.features.map(feature => `<li>${feature}</li>`).join('')}
+              </ul>
+              <a href="#book-now" class="mt-4 inline-block bg-var(--secondary) hover:bg-yellow-600 text-white font-medium py-2 px-4 rounded">S'inscrire</a>
+            </div>
+          </div>
+        `;
+        
+        packageCard.addEventListener('mouseenter', () => {
+          packageCard.querySelector('.preserve-3d').classList.add('rotate-y-180');
+        });
+        
+        packageCard.addEventListener('mouseleave', () => {
+          packageCard.querySelector('.preserve-3d').classList.remove('rotate-y-180');
+        });
+        
+        packagesGrid.appendChild(packageCard);
+      });
+    }
+
+    // Initial render of packages
+    renderPackages();
+
+    // Booking Form
+    let currentStep = 1;
+    const totalSteps = 3;
+    const bookingSteps = document.getElementById('bookingSteps');
+    const bookingForm = document.getElementById('bookingForm');
+
+    // Render Steps
+    for (let i = 1; i <= totalSteps; i++) {
+      const step = document.createElement('div');
+      step.className = `flex items-center ${i === currentStep ? 'step-active' : ''}`;
+      step.innerHTML = `
+        <div class="step-circle w-10 h-10 rounded-full flex items-center justify-center ${i === currentStep ? 'bg-var(--primary) text-white' : 'bg-gray-200 text-gray-500'}">${i}</div>
+        ${i < totalSteps ? '<div class="step-line mx-2"></div>' : ''}
+      `;
+      bookingSteps.appendChild(step);
+    }
+
+    // Form Data
+    let formData = {
+      packageId: 'monthly-duo',
+      level: 'tome1',
+      guests: 2,
+      specialRequests: '',
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: '',
+      startDate: ''
+    };
+
+    // Render Form Steps
+    function renderFormStep() {
+      bookingForm.innerHTML = '';
+      
+      if (currentStep === 1) {
+        bookingForm.innerHTML = `
+          <div class="space-y-6">
+            <h3 class="text-xl font-bold text-var(--text) mb-4 animate-slide-in-left">Détails du Cours</h3>
+            <div class="animate-slide-in-left" style="animation-delay: 0.1s;">
+              <label class="block text-gray-700 font-medium mb-2">Forfait</label>
+              <select class="form-input w-full p-3 border border-gray-300 rounded-lg" onchange="updateFormData('packageId', this.value)">
+                ${packages.map(pkg => `
+                  <option value="${pkg.id}" ${formData.packageId === pkg.id ? 'selected' : ''}>${pkg.title} - €${pkg.price} ${pkg.type === 'horaire' ? 'par heure' : pkg.type === 'annuel' ? 'par an' : pkg.type === 'mensuel' ? 'par mois' : 'par semaine'}</option>
+                `).join('')}
+              </select>
+            </div>
+            <div class="animate-slide-in-left" style="animation-delay: 0.2s;">
+              <label class="block text-gray-700 font-medium mb-2">Niveau (Tome)</label>
+              <select class="form-input w-full p-3 border border-gray-300 rounded-lg" onchange="updateFormData('level', this.value)">
+                <option value="tome1" ${formData.level === 'tome1' ? 'selected' : ''}>Tome 1 - Débutant</option>
+                <option value="tome2" ${formData.level === 'tome2' ? 'selected' : ''}>Tome 2 - Intermédiaire</option>
+                <option value="tome3" ${formData.level === 'tome3' ? 'selected' : ''}>Tome 3 - Avancé</option>
+                <option value="tome4" ${formData.level === 'tome4' ? 'selected' : ''}>Tome 4 - Expert</option>
+              </select>
+            </div>
+            <div class="animate-slide-in-left" style="animation-delay: 0.3s;">
+              <label class="block text-gray-700 font-medium mb-2">Nombre de participants</label>
+              <div class="flex border border-gray-300 rounded-lg overflow-hidden">
+                <button type="button" class="px-4 py-2 bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors" onclick="updateGuests(-1)">-</button>
+                <input type="number" value="${formData.guests}" class="form-input w-full text-center p-2 border-x border-gray-300 focus:outline-none" onchange="updateFormData('guests', this.value)" min="2">
+                <button type="button" class="px-4 py-2 bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors" onclick="updateGuests(1)">+</button>
+              </div>
+            </div>
+            <div class="animate-slide-in-left" style="animation-delay: 0.4s;">
+              <label class="block text-gray-700 font-medium mb-2">Date de début</label>
+              <input type="date" class="form-input w-full p-3 border border-gray-300 rounded-lg" value="${formData.startDate}" onchange="updateFormData('startDate', this.value)" required>
+            </div>
+          </div>
+        `;
+      } else if (currentStep === 2) {
+        bookingForm.innerHTML = `
+          <div class="space-y-6">
+            <h3 class="text-xl font-bold text-var(--text) mb-4 animate-slide-in-left">Demandes Spéciales</h3>
+            <div class="animate-slide-in-left" style="animation-delay: 0.1s;">
+              <label class="block text-gray-700 font-medium mb-2">Besoins spécifiques</label>
+              <textarea rows="5" placeholder="Préférences horaires, objectifs spécifiques, etc." class="form-input w-full p-3 border border-gray-300 rounded-lg" onchange="updateFormData('specialRequests', this.value)">${formData.specialRequests}</textarea>
+            </div>
+          </div>
+        `;
+      } else if (currentStep === 3) {
+        bookingForm.innerHTML = `
+          <div class="space-y-6">
+            <h3 class="text-xl font-bold text-var(--text) mb-4 animate-slide-in-left">Informations Personnelles</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="animate-slide-in-left" style="animation-delay: 0.1s;">
+                <label class="block text-gray-700 font-medium mb-2">Prénom</label>
+                <input type="text" placeholder="Votre prénom" class="form-input w-full p-3 border border-gray-300 rounded-lg" value="${formData.firstName}" onchange="updateFormData('firstName', this.value)" required>
+              </div>
+              <div class="animate-slide-in-left" style="animation-delay: 0.2s;">
+                <label class="block text-gray-700 font-medium mb-2">Nom</label>
+                <input type="text" placeholder="Votre nom" class="form-input w-full p-3 border border-gray-300 rounded-lg" value="${formData.lastName}" onchange="updateFormData('lastName', this.value)" required>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="animate-slide-in-left" style="animation-delay: 0.3s;">
+                <label class="block text-gray-700 font-medium mb-2">Email</label>
+                <input type="email" placeholder="votre.email@exemple.com" class="form-input w-full p-3 border border-gray-300 rounded-lg" value="${formData.email}" onchange="updateFormData('email', this.value)" required>
+              </div>
+              <div class="animate-slide-in-left" style="animation-delay: 0.4s;">
+                <label class="block text-gray-700 font-medium mb-2">Téléphone</label>
+                <input type="tel" placeholder="Votre numéro" class="form-input w-full p-3 border border-gray-300 rounded-lg" value="${formData.phone}" onchange="updateFormData('phone', this.value)" required>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+      
+      // Navigation buttons
+      const buttonsDiv = document.createElement('div');
+      buttonsDiv.className = 'flex justify-between mt-8';
+      
+      if (currentStep > 1) {
+        const prevButton = document.createElement('button');
+        prevButton.type = 'button';
+        prevButton.className = 'bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-6 rounded transition-colors duration-300';
+        prevButton.textContent = 'Précédent';
+        prevButton.onclick = prevStep;
+        buttonsDiv.appendChild(prevButton);
+      }
+      
+      const nextButton = document.createElement('button');
+      nextButton.type = currentStep === totalSteps ? 'submit' : 'button';
+      nextButton.className = 'submit-btn bg-var(--primary) hover:bg-green-600 text-white font-medium py-2 px-6 rounded transition-colors duration-300 ml-auto';
+      nextButton.textContent = currentStep === totalSteps ? 'Soumettre' : 'Suivant';
+      nextButton.onclick = currentStep === totalSteps ? submitForm : nextStep;
+      buttonsDiv.appendChild(nextButton);
+      
+      bookingForm.appendChild(buttonsDiv);
+    }
+
+    // Form Navigation and Submission
+    function updateFormData(field, value) {
+      formData[field] = value;
+      renderFormStep();
+    }
+
+    function updateGuests(change) {
+      const newValue = Math.max(2, formData.guests + change);
+      updateFormData('guests', newValue);
+    }
+
+    function nextStep() {
+      if (currentStep < totalSteps) {
+        currentStep++;
+        updateStepIndicators();
+        renderFormStep();
+        scrollToForm();
+      }
+    }
+
+    function prevStep() {
+      if (currentStep > 1) {
+        currentStep--;
+        updateStepIndicators();
+        renderFormStep();
+        scrollToForm();
+      }
+    }
+
+    function updateStepIndicators() {
+      const steps = bookingSteps.children;
+      for (let i = 0; i < steps.length; i++) {
+        const stepCircle = steps[i].querySelector('.step-circle');
+        steps[i].classList.toggle('step-active', i + 1 === currentStep);
+        stepCircle.className = `step-circle w-10 h-10 rounded-full flex items-center justify-center ${i + 1 === currentStep ? 'bg-var(--primary) text-white' : 'bg-gray-200 text-gray-500'}`;
+      }
+    }
+
+    function scrollToForm() {
+      const formSection = document.getElementById('book-now');
+      formSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function calculateTotalPrice() {
+      const selectedPackage = packages.find(pkg => pkg.id === formData.packageId);
+      if (!selectedPackage) return 0;
+      
+      return selectedPackage.price * (selectedPackage.format === 'groupe' ? formData.guests : 1);
+    }
+
+    function generateSummary() {
+      const selectedPackage = packages.find(pkg => pkg.id === formData.packageId);
+      const totalPrice = calculateTotalPrice();
+      const levelMap = {
+        tome1: 'Tome 1 - Débutant',
+        tome2: 'Tome 2 - Intermédiaire',
+        tome3: 'Tome 3 - Avancé',
+        tome4: 'Tome 4 - Expert'
+      };
+      
+      return `INSCRIPTION COURS ARABE\n\nClient: ${formData.firstName} ${formData.lastName}\nTéléphone: ${formData.phone}\nEmail: ${formData.email}\n\nDÉTAIL DE L'INSCRIPTION:\nForfait: ${selectedPackage.title}\nNiveau: ${levelMap[formData.level]}\nPrix unitaire: €${selectedPackage.price} ${selectedPackage.type === 'horaire' ? 'par heure' : selectedPackage.type === 'annuel' ? 'par an' : selectedPackage.type === 'mensuel' ? 'par mois' : 'par semaine'}\nNombre de participants: ${formData.guests}\nPrix total: €${totalPrice}\nDate de début: ${formData.startDate}\nDemandes spéciales: ${formData.specialRequests || 'Aucune'}`;
+    }
+
+    function submitForm(e) {
+      e.preventDefault();
+      
+      const summary = generateSummary();
+      const vendorPhone = '0644762721';
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      
+      if (isMobile) {
+        window.location.href = `sms:${vendorPhone}?body=${encodeURIComponent(summary)}`;
+      } else {
+        const subject = encodeURIComponent(`Inscription Cours Arabe - ${formData.firstName} ${formData.lastName}`);
+        const body = encodeURIComponent(summary);
+        window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=contact@arabecours.com&su=${subject}&body=${body}`, '_blank');
+      }
+      
+      const orderSuccess = document.getElementById('order-success');
+      orderSuccess.classList.remove('hidden');
+      setTimeout(() => {
+        orderSuccess.classList.add('hidden');
+        resetForm();
+      }, 3000);
+    }
+
+    function resetForm() {
+      formData = {
+        packageId: 'monthly-duo',
+        level: 'tome1',
+        guests: 2,
+        specialRequests: '',
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        startDate: ''
+      };
+      currentStep = 1;
+      updateStepIndicators();
+      renderFormStep();
+    }
+
+    // Initial form render
+    renderFormStep();
+  </script>
+</body>
+</html>
